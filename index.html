@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding.">
+  <meta name="keywords" content="Zero Shot, Open Vocabulary, 3D Visual Grounding, VLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding.</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- point cloud 的 JavaScript 文件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- 引用点云的脚本 -->
+  <script defer src="./point_cloud.js"></script>
+  <script defer src="./query-aligned-img.js"></script>
+
+
+  <style>
+    .a {
+      color: rgb(1, 177, 160);
+    }
+
+    .query-container {
+      padding: 10px;
+    }
+
+    .query-item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .query-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .query-dot {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      border: 2px solid black;
+      border-radius: 50%;
+    }
+
+    .query-item.active .query-dot {
+      background-color: rgb(1, 177, 160);
+      border: 2px solid black;
+    }
+
+    .columns {
+      display: flex;
+      justify-content: flex-start;
+      padding: 5px;
+      text-align: left;
+    }
+
+    .tag {
+      background-color: #f5f5f5;
+      border-radius: 3px;
+      padding: 5px;
+      margin-right: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- <h1 class="title is-1 publication-title">SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding</h1> -->
+            <img src="./seeground/logo-seeground.png" style="width: 200px; margin-bottom: 50px;">
+            <h1 class="title is-1 publication-title"><span style="color: #FF8E26;"><b>See</b></span><span
+                style="color: #01B1A0;"><b>Ground</b></span>: See and Ground for Zero-Shot Open-Vocabulary 3D Visual
+              Grounding</h1>
+            <!-- <span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span> -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://rongli.tech/">Rong Li</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://sj-li.com/">Shijie Li</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://ldkong.com/">Lingdong Kong</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://dawdleryang.github.io/">Xulei Yang</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://junweiliang.me/">Junwei Liang</a><sup>1,4</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>AI Thrust, Hong Kong University of Science and Technology
+                (Guangzhou),</span>
+              <span class="author-block"><sup>2</sup>I2R, A*STAR,</span>
+              <span class="author-block"><sup>3</sup>National University of Singapore</span>
+              <span class="author-block"><sup>4</sup>CSE, Hong Kong University of Science and Technology</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/xxxx" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/xxx" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/iris0329/SeeGround"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" style="margin-top: -10px;">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width has-text-centered">
+          <h2 class="title is-3">Abstract</h2>
+          <img src="./static/images/teaser.jpg" />
+          <div class="content has-text-justified" style="padding-top: 15px">
+            <p>
+              3D Visual Grounding (3DVG) aims to locate objects in 3D scenes based on textual
+              descriptions, which is essential for applications like augmented reality and robotics.
+              Traditional 3DVG approaches rely on annotated 3D datasets and predefined object categories, limiting
+              scalability and adaptability.
+              To overcome these limitations, we introduce <span style="color: #FF8E26;"><b>See</b></span><span
+                style="color: #01B1A0;"><b>Ground</b></span>,
+              a zero-shot 3DVG framework leveraging 2D Vision-Language Models (VLMs) trained on large-scale 2D data. We
+              propose to represent 3D scenes as a hybrid of query-aligned rendered images and spatially enriched text
+              descriptions, bridging the gap between 3D data and 2D-VLMs input formats. We propose two modules: the
+              Perspective Adaptation Module, which dynamically selects viewpoints for query-relevant image rendering,
+              and the Fusion Alignment Module, which integrates 2D images with 3D spatial descriptions to enhance object
+              localization.
+              Extensive experiments on ScanRefer and Nr3D demonstrate that our approach outperforms existing zero-shot
+              methods by large margins.
+              Notably, we exceed weakly supervised methods and rival some fully supervised ones,
+              outperforming previous SOTA by 7.7% on ScanRefer and 7.1% on Nr3D, showcasing its effectiveness.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" style="margin-top: -50px;"></section>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered" ">
+      <div class=" column is-full-width">
+      <h2 class="title is-3">Method Overview</h2>
+      <img src="./static/images/arch_1.jpg" />
+      <div class="content has-text-justified" style="padding-top: 15px">
+        <p>
+          Overview of the <span style="color: #FF8E26;"><b>See</b></span><span
+            style="color: #01B1A0;"><b>Ground</b></span> framework. We first use a 2D-VLM to interpret the query,
+          identifying both the target object (e.g., "laptop") and a context-providing anchor (e.g., "chair with floral
+          pattern"). A dynamic viewpoint is then selected based on the anchor’s position, enabling the capture of a 2D
+          rendered image that aligns with the query’s spatial requirements. Using the Object Lookup Table (OLT), we
+          retrieve the 3D bounding boxes of relevant objects, project them onto the 2D image, and apply visual prompts
+          to mark visible objects, filtering out occlusions. The image with prompts, along with the spatial
+          descriptions and query, are then input into the 2D-VLM for precise localization of the target object.
+          Finally, the 2D-VLM outputs the target object’s ID, and we retrieve its 3D bounding box from the OLT to
+          provide the final, accurate 3D position in the scene.
+        </p>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </section>
+  <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+  <!-- <section class="section">
+  <div class="container is-max-desktop">
+<div class="columns is-centered" style="margin-top: 15px"></div>
+    <div class="column is-full-width">
+        <h2 class="title is-4">3D Asset Generation for Scenes</h2>
+        <div class="content has-text-justified" style="padding-top: 15px">
+            <p>Our method can be used to generate 3D assets for scenes. Here we show a room populated with assets generated using our method.</p>
+        </div>
+        <div class="columns is-centered" style="text-align: center; padding: 5px">
+            <video poster="" autoplay="" controls="" muted="" loop="" style="border-radius: 10px">
+                <source src="./static/videos/video25_html.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </div>
+</div>
+
+</div>
+</section> -->
+  <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+  <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+  <section class="section" style="margin-top: 20px;">
+    <div class="container is-max-desktop">
+      <!--/ Matting. -->
+
+      <!-- Animation. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Experiment Results</h2>
+          <!-- Re-rendering. -->
+
+          <h3 class="title is-4" style="margin-top: 50px;">Qualitative Results</h3>
+
+          <div class="column is-full-width">
+
+            <div class="columns is-centered" style="display: flex; justify-content: space-between; padding: 5px">
+              <!-- 第一个视频及其介绍 -->
+              <div style="flex: 1; margin-right: 10px; text-align: center;">
+                <video poster="" autoplay="" controls="" muted="" loop=""
+                  style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
+                  <source src="./static/videos/video25.mp4" type="video/mp4">
+                </video>
+                <p>"It is the white keyboard, further from the door."</p>
+              </div>
+              <!-- 第二个视频及其介绍 -->
+              <div style="flex: 1; margin-left: 10px; text-align: center;">
+                <video poster="" autoplay="" controls="" muted="" loop=""
+                  style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
+                  <source src="./static/videos/video15.mp4" type="video/mp4">
+                </video>
+                <p>"Whiteboard with four chairs and desk in front of it."</p>
+              </div>
+            </div>
+
+            <div class="content has-text-justified" style="padding-top: 1px">
+              <!-- <p>Our method XXXXX.</p> -->
+            </div>
+            <div class="columns is-centered" style="display: flex; justify-content: space-between; padding: 5px">
+              <!-- 第三个视频及其介绍 -->
+              <div style="flex: 1; margin-right: 10px; text-align: center;">
+                <video poster="" autoplay="" controls="" muted="" loop=""
+                  style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
+                  <source src="./static/videos/video30.mp4" type="video/mp4">
+                </video>
+                <p>"A red felt office chair with plastic wheels is positioned between a cream chair and a blue chair at
+                  the desk furthest
+                  from the entrance, facing away from the door."</p>
+              </div>
+              <!-- 第四个视频及其介绍 -->
+              <div style="flex: 1; margin-left: 10px; text-align: center;">
+                <video poster="" autoplay="" controls="" muted="" loop=""
+                  style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
+                  <source src="./static/videos/video50.mp4" type="video/mp4">
+                </video>
+                <p>"There is a laptop on the desk in the corner of the room. The laptop is in front of a single person
+                  brown leather
+                  armchair."</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+          <div class="column is-full-width">
+            <div class="content has-text-justified" style="margin-top: 50px;">
+              <h3 class="title is-4">Interactive Demo</h3>
+              <!-- <div class="columns is-centered" style="display: flex; justify-content: space-between; padding: 5px"> -->
+              <div class="content has-text-justified">
+                <p>
+                  Here, we presents an interactive 3D room visualization.
+                  When a <b>query</b> is selected, the left panel displays an <b>interactive 3D scene</b> where the
+                  target
+                  object's <b>3D
+                    bounding box</b> is
+                  highlighted. The right panel shows the <b>query-aligned 2D rendered image</b>. Users can interact
+                  with
+                  the
+                  3D
+                  scene in the left
+                  panel using the following controls:</p>
+              </div>
+              <!-- </div> -->
+
+              <div class="columns" style="display: flex; justify-content: flex-start; padding: 5px; text-align: left;">
+                <span class="tag">Control</span>:
+                <span class="tag">Click + Drag = Rotate</span>
+                <span class="tag">Ctrl + Drag = Translate</span>
+                <span class="tag">Scroll Up/Down = Zoom In/Out</span>
+              </div>
+              <div class="query-container" style="padding: 10px; border-radius: 10px;">
+                <button class="query-item" onclick="updateQuery('Query 1')">
+                  <span class="query-dot"></span>
+                  A blue and brown chair. It's located in front of a window and it's facing a wooden desk with a
+                  computer
+                  on it.
+                </button>
+                <button class="query-item" onclick="updateQuery('Query 2')">
+                  <span class="query-dot"></span>
+                  This door is blue and does not lead to a bathroom.
+                </button>
+                <button class="query-item" onclick="updateQuery('Query 3')">
+                  <span class="query-dot"></span>
+                  The door to the bathroom
+                </button>
+              </div>
+              <!-- 点云和图像并排展示区域 -->
+              <div class="columns" style="margin-top: -10px; display: flex; justify-content: space-between;">
+                <!-- 使用 Bulma 的 is-half 类来确保每个 column 占据 50% 的宽度 -->
+                <div class="column is-half" style="padding-right: 10px; ">
+                  <!-- 左边是点云展示区域 -->
+                  <p style="text-align: center; "><b>Interactive 3D Scene</b></p>
+
+                  <div id="point-cloud"
+                    style="width: 100%; height: 400px; border-radius: 10px; border: 1px solid #ccc; overflow: hidden;">
+                    <!-- 点云将在这里渲染 -->
+                  </div>
+                </div>
+                <div class="column is-half" style="padding-left: 10px;">
+                  <!-- 右边是渲染图展示区域 -->
+                  <p style="text-align: center;"><b>Query-aligned Image<b></p>
+
+                  <div
+                    style="width: 100%; height: 400px; text-align: center; border-radius: 10px;border: 1px solid #ccc; ">
+                    <img id="renderedImage" src='./seeground/0046_00-00.png' ;
+                      style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 
+  -------------------------------------------------------------------------------------------------------- 
+  -->
+
+            <div class="column is-full-width" style="margin-top: 50px;">
+              <h3 class="title is-4">Quantitative Results on ScanRefer</h3>
+              <div class="content has-text-centered">
+                <img src="static/images/table1.jpg" alt="Quantitative Results" width="1600" style="border-style: none">
+              </div>
+
+            </div>
+          </div>
+          <!-- 
+  -------------------------------------------------------------------------------------------------------- 
+  -->
+          <div class="column is-full-width">
+            <h3 class="title is-4">Quantitative Results on Nr3D</h3>
+            <div class="content has-text-centered">
+              <img src="static/images/table2.jpg" alt="Quantitative Results" width="450" style="border-style: none">
+            </div>
+          </div>
+        </div>
+  </section>
+
+
+
+
+  <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+  <section class="section" style="margin-top: -20px;">
+    <div class="container is-max-desktop">
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Links</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              There's a lot of excellent work that was introduced around the same time as ours.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2410.13860">VLM-Grounder: A VLM Agent for Zero-Shot 3D Visual Grounding</a>
+              <!-- introduces an idea -->
+              <!-- similar to our windowed position encoding for coarse-to-fine optimization. -->
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2411.14594">Solving Zero-Shot 3D Visual Grounding as Constraint
+                Satisfaction Problems</a>
+            </p>
+            <p>
+              <a href="https://ieeexplore.ieee.org/document/10592798">ViewInfer3D: 3D Visual Grounding based on Embodied
+                Viewpoint
+                Inference</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+  <!-- 
+-------------------------------------------------------------------------------------------------------- 
+-->
+  <section class="section" id="BibTeX" style="margin-top: -20px;">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre style="border-radius: 10px;"><code>@article{li2024seeground,
+  title     = {SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding},
+  author    = {Rong Li and Shijie Li and Lingdong Kong and Xulei Yang and Junwei Liang},
+  journal   = {arXiv},
+  year      = {2024},
+}</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              We thank the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> authors for their
+              excellent templates, which we used as a basis for our site.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
