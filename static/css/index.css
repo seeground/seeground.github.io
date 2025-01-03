@@ -1,5 +1,7 @@
 body {
-  font-family: 'Noto Sans', sans-serif;
+  /* font-family: 'Noto Sans', sans-serif; */
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
 }
 
 
@@ -24,7 +26,8 @@ body {
 }
 
 .teaser {
-  font-family: 'Google Sans', sans-serif;
+  /* font-family: 'Google Sans', sans-serif; */
+  font-family: 'Nunito', sans-serif;
 }
 
 
@@ -48,11 +51,13 @@ body {
 }
 
 .publication-title {
-    font-family: 'Google Sans', sans-serif;
+    /* font-family: 'Google Sans', sans-serif; */
+  font-family: 'Nunito', sans-serif;
 }
 
 .publication-authors {
-    font-family: 'Google Sans', sans-serif;
+    /* font-family: 'Google Sans', sans-serif; */
+  font-family: 'Nunito', sans-serif;
 }
 
 .publication-venue {
