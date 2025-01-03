@@ -6,7 +6,7 @@
   <meta name="description" content="SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding.">
   <meta name="keywords" content="Zero Shot, Open Vocabulary, 3D Visual Grounding, VLM">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding.</title>
+  <title>SeeGround - Project Page</title>
 
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -327,6 +327,7 @@
               </div>
             </div>
 
+            <hr>
           </div>
 
           <!-- 
@@ -393,38 +394,391 @@
                   </div>
                 </div>
               </div>
+              <hr>
             </div>
-            <!-- 
-  -------------------------------------------------------------------------------------------------------- 
-  -->
 
 
-            <div class="column is-full-width" style="margin-top: 50px;">
-              <h3 class="title is-4">Quantitative Results on ScanRefer</h3>
-              <div class="content has-text-centered">
-                <img src="static/images/table1.jpg" alt="Quantitative Results" width="1600" style="border-style: none">
+            <br/><br/>
+
+
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">
+                  <span class="icon"><i class="fas fa-calculator"></i></span>&thinsp; Quantitative Results on ScanRefer
+                </h2>
+                
+                    <div class="table-container">
+                      <table class="table is-bordered is-striped is-hoverable">
+                        <thead>
+                          <tr>
+                              <th rowspan="2">Method</th>
+                              <th rowspan="2">Venue</th>
+                              <th rowspan="2">Supervision</th>
+                              <th rowspan="2">Agent</th>
+                              <th colspan="2">Unique</th>
+                              <th colspan="2">Multiple</th>
+                              <th colspan="2">Overall</th>
+                          </tr>
+                          <tr>
+                              <th>Acc@0.25</th>
+                              <th>Acc@0.5</th>
+                              <th>Acc@0.25</th>
+                              <th>Acc@0.5</th>
+                              <th>Acc@0.25</th>
+                              <th>Acc@0.5</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td><a>ScanRefer</a></td>
+                              <td>ECCV'20</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>67.6</td>
+                              <td>46.2</td>
+                              <td>32.1</td>
+                              <td>21.3</td>
+                              <td>39.0</td>
+                              <td>26.1</td>
+                          </tr>
+                          <tr>
+                              <td><a>InstanceRefer</a></td>
+                              <td>ICCV'21</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>77.5</td>
+                              <td>66.8</td>
+                              <td>31.3</td>
+                              <td>24.8</td>
+                              <td>40.2</td>
+                              <td>32.9</td>
+                          </tr>
+                          <tr>
+                              <td><a>3DVG-Transformer</a></td>
+                              <td>ICCV'21</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>77.2</td>
+                              <td>58.5</td>
+                              <td>38.4</td>
+                              <td>28.7</td>
+                              <td>45.9</td>
+                              <td>34.5</td>
+                          </tr>
+                          <tr>
+                              <td><a>BUTD-DETR</a></td>
+                              <td>ECCV'22</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>84.2</td>
+                              <td>66.3</td>
+                              <td>46.6</td>
+                              <td>35.1</td>
+                              <td>52.2</td>
+                              <td>39.8</td>
+                          </tr>
+                          <tr>
+                              <td><a>EDA</a></td>
+                              <td>CVPR'23</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>85.8</td>
+                              <td>68.6</td>
+                              <td>49.1</td>
+                              <td>37.6</td>
+                              <td>54.6</td>
+                              <td>42.3</td>
+                          </tr>
+                          <tr>
+                              <td><a>3D-VisTA</a></td>
+                              <td>ICCV'23</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>81.6</td>
+                              <td>75.1</td>
+                              <td>43.7</td>
+                              <td>39.1</td>
+                              <td>50.6</td>
+                              <td>45.8</td>
+                          </tr>
+                          <tr>
+                              <td><a>G3-LQ</a></td>
+                              <td>CVPR'24</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>88.6</td>
+                              <td>73.3</td>
+                              <td>50.2</td>
+                              <td>39.7</td>
+                              <td>56.0</td>
+                              <td>44.7</td>
+                          </tr>
+                          <tr>
+                              <td><a>MCLN</a></td>
+                              <td>ECCV'24</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>86.9</td>
+                              <td>72.7</td>
+                              <td>52.0</td>
+                              <td>40.8</td>
+                              <td>57.2</td>
+                              <td>45.7</td>
+                          </tr>
+                          <tr>
+                              <td><a>ConcreteNet</a></td>
+                              <td>ECCV'24</td>
+                              <td>Fully</td>
+                              <td>-</td>
+                              <td>86.4</td>
+                              <td>82.1</td>
+                              <td>42.4</td>
+                              <td>38.4</td>
+                              <td>50.6</td>
+                              <td>46.5</td>
+                          </tr>
+                          <tr>
+                              <td><a>WS-3DVG</a></td>
+                              <td>ICCV'23</td>
+                              <td>Weakly</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>27.4</td>
+                              <td>22.0</td>
+                          </tr>
+                          <tr>
+                              <td><a>LERF</a></td>
+                              <td>ICCV'23</td>
+                              <td>Zero-Shot</td>
+                              <td>CLIP</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>4.8</td>
+                              <td>0.9</td>
+                          </tr>
+                          <tr>
+                              <td><a>OpenScene</a></td>
+                              <td>CVPR'23</td>
+                              <td>Zero-Shot</td>
+                              <td>CLIP</td>
+                              <td>20.1</td>
+                              <td>13.1</td>
+                              <td>11.1</td>
+                              <td>4.4</td>
+                              <td>13.2</td>
+                              <td>6.5</td>
+                          </tr>
+                          <tr>
+                              <td><a>LLM-G</a></td>
+                              <td>ICRA'24</td>
+                              <td>Zero-Shot</td>
+                              <td>GPT-3.5</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>14.3</td>
+                              <td>4.7</td>
+                          </tr>
+                          <tr>
+                              <td><a>LLM-G</a></td>
+                              <td>ICRA'24</td>
+                              <td>Zero-Shot</td>
+                              <td>GPT-4 turbo</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>17.1</td>
+                              <td>5.3</td>
+                          </tr>
+                          <tr>
+                              <td><a>ZSVG3D</a></td>
+                              <td>CVPR'24</td>
+                              <td>Zero-Shot</td>
+                              <td>GPT-4 turbo</td>
+                              <td>63.8</td>
+                              <td>58.4</td>
+                              <td>27.7</td>
+                              <td>24.6</td>
+                              <td>36.4</td>
+                              <td>32.7</td>
+                          </tr>
+                          <tr>
+                              <td><b><span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span></b></td>
+                              <td><b>Ours</b></td>
+                              <td><b>Zero-Shot</b></td>
+                              <td>Qwen2-VL-72b</td>
+                              <td>75.7</td>
+                              <td>68.9</td>
+                              <td>34.0</td>
+                              <td>30.0</td>
+                              <td>44.1</td>
+                              <td>39.4</td>
+                          </tr>
+                      </tbody>
+                      </table>
+                      <span>
+                        <b>Table 1.</b> Evaluations of state-of-the-art 3DVG methods on ScanRefer validation set. 
+                        Results are reported for "Unique" (scenes with a single target object) and "Multiple" (scenes with distractors of the same class) subsets, along with the overall performance.
+                      </span>
+                    </div>
               </div>
+            </div>
 
+
+          <hr><br/><br/><br/>
+
+
+
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">
+                    <span class="icon"><i class="fas fa-calculator"></i></span>&thinsp; Quantitative Results on Nr3D
+                </h2>
+                
+                <div class="table-wrapper" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="table-container">
+                        <table class="table is-bordered is-striped is-hoverable" style="margin: auto; text-align: center;">
+                        <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Venue</th>
+                            <th>Easy</th>
+                            <th>Hard</th>
+                            <th>Dependent</th>
+                            <th>Independent</th>
+                            <th>Overall</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7"><strong>Supervision: Fully Supervised 3DVG</strong></td>
+                        </tr>
+                        <tr>
+                            <td><a>ReferIt3DNet</a></td>
+                            <td>ECCV'20</td>
+                            <td>43.6</td>
+                            <td>27.9</td>
+                            <td>32.5</td>
+                            <td>37.1</td>
+                            <td>35.6</td>
+                        </tr>
+                        <tr>
+                            <td><a>TGNN</a></td>
+                            <td>AAAI'21</td>
+                            <td>44.2</td>
+                            <td>30.6</td>
+                            <td>35.8</td>
+                            <td>38.0</td>
+                            <td>37.3</td>
+                        </tr>
+                        <tr>
+                            <td><a>InstanceRefer</a></td>
+                            <td>ICCV'21</td>
+                            <td>46.0</td>
+                            <td>31.8</td>
+                            <td>34.5</td>
+                            <td>41.9</td>
+                            <td>38.8</td>
+                        </tr>
+                        <tr>
+                            <td><a>3DVG-Transformer</a></td>
+                            <td>ICCV'2</td>
+                            <td>48.5</td>
+                            <td>34.8</td>
+                            <td>34.8</td>
+                            <td>43.7</td>
+                            <td>40.8</td>
+                        </tr>
+                        <tr>
+                            <td><a>BUTD-DETR</a></td>
+                            <td>ECCV'22</td>
+                            <td>60.7</td>
+                            <td>48.4</td>
+                            <td>46.0</td>
+                            <td>58.0</td>
+                            <td>54.6</td>
+                        </tr>
+                        <tr>
+                            <td colspan="7"><strong>Supervision: Weakly Supervised 3DVG</strong></td>
+                        </tr>
+                        <tr>
+                            <td><a>WS-3DVG</a></td>
+                            <td>ICCV'23</td>
+                            <td>27.3</td>
+                            <td>18.0</td>
+                            <td>21.6</td>
+                            <td>22.9</td>
+                            <td>22.5</td>
+                        </tr>
+                        <tr>
+                            <td colspan="7"><strong>Supervision: Zero-Shot 3DVG</strong></td>
+                        </tr>
+                        <tr>
+                            <td><a>ZSVG3D</a></td>
+                            <td>CVPR'24</td>
+                            <td>46.5</td>
+                            <td>31.7</td>
+                            <td>36.8</td>
+                            <td>40.0</td>
+                            <td>39.0</td>
+                        </tr>
+                        <tr>
+                            <td><b><span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span></b></td>
+                            <td><b>Ours</b></td>
+                            <td>54.5</td>
+                            <td>38.3</td>
+                            <td>42.3</td>
+                            <td>48.2</td>
+                            <td>46.1</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    <span>
+                      <br/>
+                      <b>Table 2.</b> Evaluations of state-of-the-art 3DVG methods on Nr3D validation set. 
+                      Queries are labeled as "Easy" (one distractor) or "Hard" (multiple distractors), and as "View-Dependent" or "View-Independent" based on viewpoint requirements for grounding.
+                    </span>
+                  </div>
             </div>
           </div>
-          <!-- 
-  -------------------------------------------------------------------------------------------------------- 
-  -->
-          <div class="column is-full-width">
-            <h3 class="title is-4">Quantitative Results on Nr3D</h3>
-            <div class="content has-text-centered">
-              <img src="static/images/table2.jpg" alt="Quantitative Results" width="450" style="border-style: none">
-            </div>
-          </div>
-        </div>
+
   </section>
 
 
 
 
+  <br/>
+
+
+  
+
   <!-- 
 -------------------------------------------------------------------------------------------------------- 
 -->
+  <section class="section" id="BibTeX" style="margin-top: -20px;">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre style="border-radius: 10px;"><code>@article{li2024seeground,
+  title   = {SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding},
+  author  = {Rong Li and Shijie Li and Lingdong Kong and Xulei Yang and Junwei Liang},
+  journal = {arXiv preprint arXiv:2412.04383},
+  year    = {2024},
+}</code></pre>
+  <hr>
+    </div>
+  </section>
+
+
+
+
+
   <section class="section" style="margin-top: -20px;">
     <div class="container is-max-desktop">
       <!-- Concurrent Work. -->
@@ -463,20 +817,12 @@
     </div>
   </section>
 
-  <!-- 
--------------------------------------------------------------------------------------------------------- 
--->
-  <section class="section" id="BibTeX" style="margin-top: -20px;">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre style="border-radius: 10px;"><code>@article{li2024seeground,
-  title   = {SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding},
-  author  = {Rong Li and Shijie Li and Lingdong Kong and Xulei Yang and Junwei Liang},
-  journal = {arXiv preprint arXiv:2412.04383},
-  year    = {2024},
-}</code></pre>
-    </div>
-  </section>
+
+
+  <br/>
+
+
+
 
 
   <footer class="footer">
