@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="description" content="SeeGround: See and Ground for Zero-Shot Open-Vocabulary 3D Visual Grounding.">
@@ -23,18 +22,19 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/bulma-carousel.min.css"> -->
+  <!-- <link rel="stylesheet" href="./static/css/bulma-slider.min.css"> -->
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <!-- <script src="./static/js/bulma-carousel.min.js"></script> -->
+  <!-- <script src="./static/js/bulma-slider.min.js"></script> -->
+  <!-- <script src="./static/js/index.js"></script> -->
+
 
   <!-- point cloud 的 JavaScript 文件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -140,7 +140,7 @@
 
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <sup>1</sup>AI Thrust, HKUST (Guangzhou)&nbsp;&nbsp;&nbsp;&nbsp;
+                <sup>1</sup>AI Thrust, HKUST(Guangzhou)&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
               <span class="author-block">
                 <sup>2</sup>I2R, A*STAR&nbsp;&nbsp;&nbsp;&nbsp;
@@ -214,15 +214,15 @@
           <img src="./static/images/teaser.png" />
           <div class="content has-text-justified" style="padding-top: 15px">
             <p>
-              3D Visual Grounding (3DVG) aims to locate objects in 3D scenes based on textual
+              <b>3D Visual Grounding (3DVG)</b> aims to locate objects in 3D scenes based on textual
               descriptions, which is essential for applications like augmented reality and robotics.
               Traditional 3DVG approaches rely on annotated 3D datasets and predefined object categories, limiting
               scalability and adaptability.
               To overcome these limitations, we introduce <span style="color: #FF8E26;"><b>See</b></span><span
                 style="color: #01B1A0;"><b>Ground</b></span>,
-              a zero-shot 3DVG framework leveraging 2D Vision-Language Models (VLMs) trained on large-scale 2D data. We
+              a <b>zero-shot 3DVG framework</b> leveraging 2D Vision-Language Models (VLMs) trained on large-scale 2D data. We
               propose to represent 3D scenes as a hybrid of query-aligned rendered images and spatially enriched text
-              descriptions, bridging the gap between 3D data and 2D-VLMs input formats. We propose two modules: the
+              descriptions, bridging the gap between 3D data and 2D-VLMs input formats. We propose <b>two modules</b>: the
               Perspective Adaptation Module, which dynamically selects viewpoints for query-relevant image rendering,
               and the Fusion Alignment Module, which integrates 2D images with 3D spatial descriptions to enhance object
               localization.
@@ -244,11 +244,13 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class=" column is-full-width has-text-centered">
-      <h2 class="title is-3">Framework Overview</h2>
+        <h2 class="title is-3">
+          <span class="icon"><i class="fa fa-paw"></i></span>&thinsp; The <span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span> Framework
+        </h2>
       <img src="./static/images/arch_1.png" />
       <div class="content has-text-justified" style="padding-top: 15px">
         <p>
-          Overview of the <span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span> framework. 
+          <b>Figure.</b> Overview of the <span style="color: #FF8E26;"><b>See</b></span><span style="color: #01B1A0;"><b>Ground</b></span> framework. 
           We first use a 2D-VLM to interpret the query,
           identifying both the target object (e.g., "laptop") and a context-providing anchor (e.g., "chair with floral
           pattern"). A dynamic viewpoint is then selected based on the anchor’s position, enabling the capture of a 2D
@@ -268,14 +270,79 @@
 
 
 
+  <section class="section" style="margin-top: -50px;"></section>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered" style="display: flex; align-items: center;">
+        <!-- Left Column for the Image -->
+        <div class="column is-half" style="text-align: center;">
+          <img src="./static/images/perspective_selection.png" style="max-width: 100%; height: auto;" />
+        </div>
+        <!-- Right Column for the Text -->
+        <div class="column is-half">
+          <div class="content has-text-justified" style="padding-left: 15px;">
+            <h2 class="title is-3">
+              Perspective Selection
+            </h2>
+            <p>
+              There are many strategies for rendering images from the 3D scene, for instance, LAR positions the camera around each object to capture multi-view images. 
+              While this provides detailed views, it lacks overall scene context, making it difficult to interpret relationships between objects.
+              Another is BEV, where the camera is positioned above the scene center, capturing a top-down perspective.
+              Different from existing methods, our “Query-Aligned” strategy dynamically adapts the viewpoint to match the spatial context of the query, enhancing detail and relevance of visible objects compared to static methods.
+            </p>
+          </div>
+        </div>
+      </div><hr>
+    </div>
+  </section>
+
+
+  <br/>
+
+
+  <section class="section" style="margin-top: -50px;"></section>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered" style="display: flex; align-items: center;">
+        <!-- Left Column for the Text -->
+        <div class="column is-half">
+          <div class="content has-text-justified" style="padding-left: 15px;">
+            <h2 class="title is-3">
+              Visual Prompts
+            </h2>
+            <p>
+              We provide an analysis of designs on visual prompts, including Mask, Contour, and BBOX.
+              Each presents unique advantages and limitations, particularly when combined with 3D spatial information. 
+              <br/>
+              <b>Mask.</b> It intuitively highlights the entire object surface. However, even with high transparency, it can obscure surface details like texture and fine-grained patterns, which are critical for distinguishing objects.
+              <br/>
+              <b>BBOX.</b> It clearly defines boundaries but introduces visual complexity due to the overlay of bounding box lines. These lines often obscure surface features (colors or textures).
+              <br/>
+              <b>Marker.</b> It offers the most minimal and focused design, marking object centers without introducing visual clutter or occluding appearance features. 
+              This maximally preserves object details like texture and color while providing essential spatial information.
+            </p>
+          </div>
+        </div>
+        <!-- Right Column for the Image -->
+        <div class="column is-half" style="text-align: center;">
+          <img src="./static/images/visual_prompts.png" style="max-width: 100%; height: auto;" />
+        </div>
+      </div><hr>
+    </div>
+  </section>
+
+
+  <br/>
+
+
   <section class="section" style="margin-top: 20px;">
     <div class="container is-max-desktop">
       <!--/ Matting. -->
 
       <!-- Animation. -->
       <div class="columns is-centered">
-        <div class="column is-full-width">
-          <h2 class="title is-3">Experiment Results</h2>
+        <div class="column is-full-width has-text-centered">
+          <h2 class="title is-3">
+            <span class="icon"><i class="fa fa-cogs"></i></span>&thinsp; Experiments
+          </h2>
           <!-- Re-rendering. -->
 
           <h3 class="title is-4" style="margin-top: 50px;">Qualitative Results</h3>
@@ -289,7 +356,7 @@
                   style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
                   <source src="./static/videos/video25.mp4" type="video/mp4">
                 </video>
-                <p>"It is the white keyboard, further from the door."</p>
+                <p>"It is the white keyboard, further from the door"</p>
               </div>
               <!-- 第二个视频及其介绍 -->
               <div style="flex: 1; margin-left: 10px; text-align: center;">
@@ -297,7 +364,7 @@
                   style="border-radius: 10px; border: 1px solid #ccc; width: 100%;">
                   <source src="./static/videos/video15.mp4" type="video/mp4">
                 </video>
-                <p>"Whiteboard with four chairs and desk in front of it."</p>
+                <p>"Whiteboard with four chairs and desk in front of it"</p>
               </div>
             </div>
 
@@ -312,8 +379,7 @@
                   <source src="./static/videos/video30.mp4" type="video/mp4">
                 </video>
                 <p>"A red felt office chair with plastic wheels is positioned between a cream chair and a blue chair at
-                  the desk furthest
-                  from the entrance, facing away from the door."</p>
+                  the desk furthest from the entrance, facing away from the door"</p>
               </div>
               <!-- 第四个视频及其介绍 -->
               <div style="flex: 1; margin-left: 10px; text-align: center;">
@@ -322,8 +388,7 @@
                   <source src="./static/videos/video50.mp4" type="video/mp4">
                 </video>
                 <p>"There is a laptop on the desk in the corner of the room. The laptop is in front of a single person
-                  brown leather
-                  armchair."</p>
+                  brown leather armchair"</p>
               </div>
             </div>
 
@@ -335,7 +400,9 @@
 -->
           <div class="column is-full-width">
             <div class="content has-text-justified" style="margin-top: 50px;">
-              <h3 class="title is-4">Interactive Demo</h3>
+              <h3 class="title is-4">
+                <span class="icon"><i class="fa fa-paper-plane"></i></span> Interactive Demo
+              </h3>
               <!-- <div class="columns is-centered" style="display: flex; justify-content: space-between; padding: 5px"> -->
               <div class="content has-text-justified">
                 <p>
@@ -746,15 +813,25 @@
                       Queries are labeled as "Easy" (one distractor) or "Hard" (multiple distractors), and as "View-Dependent" or "View-Independent" based on viewpoint requirements for grounding.
                     </span>
                   </div>
-            </div>
+            </div><hr>
           </div>
-
   </section>
 
 
 
-
-  <br/>
+  <section class="section" style="margin-top: -50px;"></section>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class=" column is-full-width has-text-centered">
+        <h2 class="title is-3">
+          <span class="icon"><i class="fa fa-puzzle-piece"></i></span>&thinsp; More Examples
+        </h2>
+      <img src="./static/images/more_examples.png" />
+      <hr>
+    </div>
+  </div>
+  </div>
+  </section>
 
 
   
